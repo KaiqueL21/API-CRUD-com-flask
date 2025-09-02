@@ -14,14 +14,15 @@ def create_user():
         return jsonify({"erro": "Dados inválidos"}), 400
     
     new_user = {
-        "id": current_id,
+        "id": users_id,          
         "nome": data["nome"],
         "email": data["email"]
     }
     users.append(new_user)
-    current_id += 1
+    users_id += 1               
     
     return jsonify(new_user), 201
+
 
 @app.route("/users", methods=["GET"])
 def get_users():
@@ -45,7 +46,6 @@ def update_user(user_id):
                 user["email"] = data["email"]
             return jsonify(user), 200
     return jsonify({"erro": "Usuário não encontrado"}), 404
-
 @app.route("/users/<int:user_id>", methods=["DELETE"])
 def delete_user(user_id):
     for user in users:
